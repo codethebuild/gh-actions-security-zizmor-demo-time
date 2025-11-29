@@ -5,8 +5,7 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
-    cooldown:
-      default-days: 7
+
     groups:
       github-actions:
         patterns:
@@ -16,5 +15,5 @@ updates:
     pull-request-branch-name:
       separator: "-"
     commit-message:
-      prefix: "chore(deps)"
+      prefix: "chore"
       include: "scope"
