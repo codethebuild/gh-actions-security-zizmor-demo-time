@@ -31,3 +31,4 @@ jobs:
         with:
           persona: pedantic
           advanced-security: false
+          annotations: true
