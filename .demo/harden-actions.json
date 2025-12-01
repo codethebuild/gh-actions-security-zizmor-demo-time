@@ -3,6 +3,13 @@
   "title": "Harden GitHub Actions with Zizmor",
   "description": "Security demos and demonstrations for hardening GitHub Actions workflows",
   "version": 2,
+  "variables": [
+    {
+      "name": "ZIZMOR_TERMINAL_WAIT_TIME",
+      "description": "Wait time after zizmor command execution",
+      "default": 3000
+    }
+  ],
   "demos": [
     {
       "id": "add-workflows",
@@ -15,6 +22,7 @@
       "steps": [
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "BRANCH_NAME=security/harden-workflows-$(date +%s) && git checkout -b $BRANCH_NAME && echo $BRANCH_NAME > /tmp/demo-branch-name",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -37,6 +45,7 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/workflows/zizmor.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -67,6 +76,7 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/workflows/dependency-review.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -139,13 +149,22 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/dependabot.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git commit -m 'chore: Add cooldown period to Dependabot'",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50
+        }
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "git",
+          "command": "git push",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         }
@@ -161,6 +180,29 @@
       },
       "steps": [
         {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "clear && zizmor .",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50,
+          "terminalId": "demo"
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 20000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
           "action": "open",
           "path": ".github/workflows/ci.yml"
         },
@@ -175,7 +217,7 @@
         {
           "action": "unselect"
         },
-       {
+        {
           "action": "highlight",
           "path": ".github/workflows/ci.yml",
           "position": "16"
@@ -198,7 +240,6 @@
         {
           "action": "highlight",
           "path": ".github/workflows/ci.yml",
-          "zoom": 1.5,
           "position": "19"
         },
         {
@@ -270,13 +311,22 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/workflows/ci.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git commit -m 'chore: Pin GitHub Actions to specific versions'",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "git",
+          "command": "git push",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         }
@@ -291,6 +341,29 @@
         "end": "pass-filled"
       },
       "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "clear &&zizmor .",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50,
+          "terminalId": "demo"
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 20000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
         {
           "action": "insert",
           "path": ".github/workflows/ci.yml",
@@ -352,15 +425,47 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/workflows/ci.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git commit -m 'chore: Add least-privilege permissions to CI workflow'",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "git",
+          "command": "git push",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "clear && zizmor .",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50,
+          "terminalId": "demo"
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 10000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
         }
       ]
     },
@@ -373,6 +478,29 @@
         "end": "pass-filled"
       },
       "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "command": "clear && zizmor -p --gh-token $(gh auth token) .",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50,
+          "terminalId": "demo"
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 20000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
         {
           "action": "replace",
           "path": ".github/workflows/ci.yml",
@@ -422,12 +550,14 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git add .github/workflows/ci.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git commit -m 'chore: Upgrade to pedantic hardening level'",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -439,7 +569,31 @@
           "insertTypingSpeed": 50
         },
         {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
           "action": "executeTerminalCommand",
+          "command": "clear &&zizmor -p --gh-token $(gh auth token) .",
+          "insertTypingMode": "character-by-character",
+          "insertTypingSpeed": 50,
+          "terminalId": "demo"
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 10000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "demo",
           "command": "gh pr view --web",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -447,6 +601,33 @@
         {
           "action": "showInfoMessage",
           "message": "✅ Changes committed and pushed to the branch!"
+        }
+      ]
+    },
+    {
+      "id": "demo-mim6yt0i-bmdm",
+      "title": "Demo 6",
+      "steps": [
+        {
+          "action": "openTerminal",
+          "terminalId": "zizmor"
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
+        },
+        {
+          "action": "executeTerminalCommand",
+          "terminalId": "zizmor",
+          "command": "zizmor ."
+        },
+        {
+          "action": "waitForTimeout",
+          "timeout": 5000
+        },
+        {
+          "action": "executeVSCodeCommand",
+          "command": "workbench.action.toggleMaximizedPanel"
         }
       ]
     }
