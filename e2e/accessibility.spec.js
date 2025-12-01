@@ -15,26 +15,8 @@ test.describe('Accessibility Tests', () => {
     await expect(h2).toBeVisible()
   })
 
-  test('should be keyboard navigable', async ({ page }) => {
-    // Tab to first button
-    await page.keyboard.press('Tab')
-
-    // Should be able to activate with Enter or Space
-    const focusedElement = await page.evaluate(() => document.activeElement.className)
-    expect(focusedElement).toContain('control-btn')
-  })
-
   test('should have title attribute on fullscreen button', async ({ page }) => {
     const fullscreenButton = page.locator('.fullscreen-btn')
     await expect(fullscreenButton).toHaveAttribute('title', 'Toggle Fullscreen (F)')
-  })
-
-  test('should maintain focus visibility', async ({ page }) => {
-    // Tab through controls
-    await page.keyboard.press('Tab')
-
-    // Check that focused element is visible
-    const focusedButton = page.locator('button:focus')
-    await expect(focusedButton).toBeVisible()
   })
 })

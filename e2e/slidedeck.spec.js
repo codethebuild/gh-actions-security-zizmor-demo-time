@@ -10,7 +10,7 @@ test.describe('Slide Deck Application', () => {
   })
 
   test('should display the first slide', async ({ page }) => {
-    await expect(page.locator('h1.slide-title')).toContainText('Building Modern Web Applications')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Building Modern Web Applications')
     await expect(page.locator('.slide-counter')).toContainText('1 / 10')
   })
 
@@ -20,7 +20,7 @@ test.describe('Slide Deck Application', () => {
     await nextButton.click()
 
     await expect(page.locator('.slide-counter')).toContainText('2 / 10')
-    await expect(page.locator('h1.slide-title')).toContainText('About This Talk')
+    await expect(page.getByRole('heading', { level: 2 })).toContainText('About This Talk')
   })
 
   test('should navigate to previous slide with arrow button', async ({ page }) => {
@@ -36,6 +36,7 @@ test.describe('Slide Deck Application', () => {
   })
 
   test('should navigate with keyboard arrow keys', async ({ page }) => {
+    await page.click('body')
     await page.keyboard.press('ArrowRight')
     await expect(page.locator('.slide-counter')).toContainText('2 / 10')
 
@@ -44,11 +45,13 @@ test.describe('Slide Deck Application', () => {
   })
 
   test('should navigate with space key', async ({ page }) => {
+    await page.click('body')
     await page.keyboard.press('Space')
     await expect(page.locator('.slide-counter')).toContainText('2 / 10')
   })
 
   test('should jump to first slide with Home key', async ({ page }) => {
+    await page.click('body')
     // Navigate to third slide
     await page.keyboard.press('ArrowRight')
     await page.keyboard.press('ArrowRight')
@@ -60,12 +63,14 @@ test.describe('Slide Deck Application', () => {
   })
 
   test('should jump to last slide with End key', async ({ page }) => {
+    await page.click('body')
     await page.keyboard.press('End')
     await expect(page.locator('.slide-counter')).toContainText('10 / 10')
-    await expect(page.locator('h1.slide-title')).toContainText('Thank You')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Thank You')
   })
 
   test('should wrap around from last to first slide', async ({ page }) => {
+    await page.click('body')
     // Go to last slide
     await page.keyboard.press('End')
     await expect(page.locator('.slide-counter')).toContainText('10 / 10')
@@ -133,6 +138,7 @@ test.describe('Slide Deck Application', () => {
 
   test('should display slide content correctly', async ({ page }) => {
     // Navigate to a content slide
+    await page.click('body')
     await page.keyboard.press('ArrowRight')
 
     // Check for bullet points
