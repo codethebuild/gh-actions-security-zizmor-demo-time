@@ -21,6 +21,14 @@
       },
       "steps": [
         {
+          "action": "openTerminal",
+          "terminalId": "demo"
+        },
+        {
+          "action": "openTerminal",
+          "terminalId": "git"
+        },
+        {
           "action": "executeTerminalCommand",
           "terminalId": "git",
           "command": "BRANCH_NAME=security/harden-workflows-$(date +%s) && git checkout -b $BRANCH_NAME && echo $BRANCH_NAME > /tmp/demo-branch-name",
@@ -87,24 +95,28 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git commit -m 'Add security workflows: zizmor and dependency review'",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "BRANCH_NAME=$(cat /tmp/demo-branch-name) && git push -u origin $BRANCH_NAME",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "gh pr create --title 'chore(demo): Harden actions' --body 'This PR is harden GitHub Actions workflows by adding security analysis with zizmor and dependency review.'  --assignee @me",
           "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 50
+          "insertTypingSpeed": 20
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "gh pr view --web",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -564,6 +576,7 @@
         },
         {
           "action": "executeTerminalCommand",
+          "terminalId": "git",
           "command": "git push",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -593,7 +606,7 @@
         },
         {
           "action": "executeTerminalCommand",
-          "terminalId": "demo",
+          "terminalId": "git",
           "command": "gh pr view --web",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
@@ -601,33 +614,6 @@
         {
           "action": "showInfoMessage",
           "message": "✅ Changes committed and pushed to the branch!"
-        }
-      ]
-    },
-    {
-      "id": "demo-mim6yt0i-bmdm",
-      "title": "Demo 6",
-      "steps": [
-        {
-          "action": "openTerminal",
-          "terminalId": "zizmor"
-        },
-        {
-          "action": "executeVSCodeCommand",
-          "command": "workbench.action.toggleMaximizedPanel"
-        },
-        {
-          "action": "executeTerminalCommand",
-          "terminalId": "zizmor",
-          "command": "zizmor ."
-        },
-        {
-          "action": "waitForTimeout",
-          "timeout": 5000
-        },
-        {
-          "action": "executeVSCodeCommand",
-          "command": "workbench.action.toggleMaximizedPanel"
         }
       ]
     }

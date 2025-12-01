@@ -82,7 +82,9 @@ function SlideDeck({ slides }) {
       <div className={`slide slide-${slide.type}`}>
         <div className="slide-content">
           {slide.type === 'title' && slide.title && <h1 className="slide-title">{slide.title}</h1>}
-          {slide.type === 'content' && slide.title && <h2 className="slide-title">{slide.title}</h2>}
+          {slide.type === 'content' && slide.title && (
+            <h2 className="slide-title">{slide.title}</h2>
+          )}
           {slide.subtitle && <h2 className="slide-subtitle">{slide.subtitle}</h2>}
           {slide.content && (
             <div className="slide-body">
