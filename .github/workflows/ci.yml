@@ -8,6 +8,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Test and Build
@@ -15,7 +19,7 @@ jobs:
 
     permissions:
       contents: read
-      pull-requests: write
+      pull-requests: write # required for reviewdog to make comments
 
     steps:
       - name: Checkout code
