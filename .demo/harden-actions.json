@@ -3,13 +3,6 @@
   "title": "Harden GitHub Actions with Zizmor",
   "description": "Security demos and demonstrations for hardening GitHub Actions workflows",
   "version": 2,
-  "variables": [
-    {
-      "name": "ZIZMOR_TERMINAL_WAIT_TIME",
-      "description": "Wait time after zizmor command execution",
-      "default": 3000
-    }
-  ],
   "demos": [
     {
       "id": "add-workflows",
@@ -36,10 +29,6 @@
           "insertTypingSpeed": 50
         },
         {
-          "action": "showInfoMessage",
-          "message": "🔒 Adding zizmor security workflow to scan GitHub Actions..."
-        },
-        {
           "action": "create",
           "path": ".github/workflows/zizmor.yml"
         },
@@ -49,7 +38,7 @@
           "position": "1",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 10,
-          "content": "name: GitHub Actions Security Analysis with zizmor\n\non:\n  push:\n    branches: [\"main\"]\n    paths:\n      - \".github/workflows/**\"\n  pull_request:\n    branches: [\"**\"]\n    paths:\n      - \".github/workflows/**\"\n\npermissions: {}\n\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  zizmor:\n    name: Run zizmor\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      actions: read           # to read actions in status in the repo\n      security-events: write  # to create security alerts\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@v6.0.0\n        with:\n          persist-credentials: false\n\n      - name: Run zizmor\n        uses: zizmorcore/zizmor-action@e673c3917a1aef3c65c972347ed84ccd013ecda4 # v0.2.0\n        with:\n          persona: pedantic\n          advanced-security: false\n          annotations: true\n"
+          "content": "name: GitHub Actions Security Analysis with zizmor\n\non:\n  push:\n    branches: [\"main\"]\n    paths:\n      - \".github/workflows/**\"\n  pull_request:\n    branches: [\"**\"]\n    paths:\n      - \".github/workflows/**\"\n\npermissions: {}\n\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\njobs:\n  zizmor:\n    name: Run zizmor\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read\n      actions: read           # to read actions in status in the repo\n      security-events: write  # to create security alerts\n    steps:\n      - name: Checkout repository\n        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2\n        with:\n          persist-credentials: false\n\n      - name: Run zizmor\n        uses: zizmorcore/zizmor-action@0dce2577a4760a2749d8cfb7a84b7d5585ebcb7d # v0.5.0\n        with:\n          persona: pedantic\n          advanced-security: false\n          annotations: true\n"
         },
         {
           "action": "executeTerminalCommand",
@@ -59,16 +48,8 @@
           "insertTypingSpeed": 50
         },
         {
-          "action": "showInfoMessage",
-          "message": "✅ zizmor workflow added and staged for commit!"
-        },
-        {
           "action": "waitForTimeout",
           "timeout": 10000
-        },
-        {
-          "action": "showInfoMessage",
-          "message": "🔒 Adding dependency review workflow to scan dependencies..."
         },
         {
           "action": "create",
@@ -80,7 +61,7 @@
           "position": "1",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 10,
-          "content": "name: 'Dependency Review'\non: [pull_request]\n\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\npermissions: {}\n\njobs:\n  dependency-review:\n    name: Dependency vulnerability scan\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read        # for actions/checkout\n      pull-requests: write  # for actions/dependency-review-action to comment on PRs\n    steps:\n      - name: 'Checkout Repository'\n        uses: actions/checkout@v6.0.0\n        with:\n          persist-credentials: false\n      - name: 'Dependency Review'\n        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2\n        with:\n          comment-summary-in-pr: always"
+          "content": "name: 'Dependency Review'\non: [pull_request]\n\nconcurrency:\n  group: ${{ github.workflow }}-${{ github.ref }}\n  cancel-in-progress: true\n\npermissions: {}\n\njobs:\n  dependency-review:\n    name: Dependency vulnerability scan\n    runs-on: ubuntu-latest\n    permissions:\n      contents: read        # for actions/checkout\n      pull-requests: write  # for actions/dependency-review-action to comment on PRs\n    steps:\n      - name: 'Checkout Repository'\n        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2\n        with:\n          persist-credentials: false\n      - name: 'Dependency Review'\n        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2\n        with:\n          comment-summary-in-pr: always"
         },
         {
           "action": "executeTerminalCommand",
@@ -88,10 +69,6 @@
           "command": "git add .github/workflows/dependency-review.yml",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
-        },
-        {
-          "action": "showInfoMessage",
-          "message": "✅ Dependency review workflow added and staged for commit!"
         },
         {
           "action": "executeTerminalCommand",
@@ -115,15 +92,15 @@
           "insertTypingSpeed": 20
         },
         {
+          "action": "waitForTimeout",
+          "timeout": 2000
+        },
+        {
           "action": "executeTerminalCommand",
           "terminalId": "git",
           "command": "gh pr view --web",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
-        },
-        {
-          "action": "showInfoMessage",
-          "message": "✅ Pull request created! Security workflows are ready for review."
         }
       ]
     },
@@ -160,6 +137,10 @@
           "action": "save"
         },
         {
+          "action": "openTerminal",
+          "terminalId": "git"
+        }
+        {
           "action": "executeTerminalCommand",
           "terminalId": "git",
           "command": "git add .github/dependabot.yml",
@@ -172,7 +153,7 @@
           "command": "git commit -m 'chore: Add cooldown period to Dependabot'",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
-        }
+        },
         {
           "action": "executeTerminalCommand",
           "terminalId": "git",
@@ -222,7 +203,7 @@
           "action": "replace",
           "path": ".github/workflows/ci.yml",
           "position": "16,31:16,38",
-          "content": "v6.0.0",
+          "content": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
@@ -242,7 +223,7 @@
           "action": "replace",
           "path": ".github/workflows/ci.yml",
           "position": "19,33:19,40",
-          "content": "v6.0.0",
+          "content": "6044e13b5dc448c55e2357c09f80417699197238",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
@@ -282,7 +263,7 @@
           "action": "replace",
           "path": ".github/workflows/ci.yml",
           "position": "52,38:52,45",
-          "content": "v5.0.0",
+          "content": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
@@ -302,7 +283,7 @@
           "action": "replace",
           "path": ".github/workflows/ci.yml",
           "position": "59,38:59,45",
-          "content": "v5.0.0",
+          "content": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
         },
@@ -554,10 +535,6 @@
           "timeout": 2000
         },
         {
-          "action": "showInfoMessage",
-          "message": "✅ Workflow hardened! Actions pinned, permissions restricted, credentials protected"
-        },
-        {
           "action": "save"
         },
         {
@@ -610,10 +587,6 @@
           "command": "gh pr view --web",
           "insertTypingMode": "character-by-character",
           "insertTypingSpeed": 50
-        },
-        {
-          "action": "showInfoMessage",
-          "message": "✅ Changes committed and pushed to the branch!"
         }
       ]
     }
