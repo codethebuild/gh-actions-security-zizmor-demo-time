@@ -1,0 +1,25 @@
+name: 'Dependency Review'
+on: [pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  dependency-review:
+    name: Dependency vulnerability scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read        # for actions/checkout
+      pull-requests: write  # for actions/dependency-review-action to comment on PRs
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v6.0.0
+        with:
+          persist-credentials: false
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@3c4e3dcb1aa7874d2c16be7d79418e9b7efd6261 # v4.8.2
+        with:
+          comment-summary-in-pr: always
