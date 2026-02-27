@@ -17,3 +17,4 @@ updates:
       prefix: "chore"
     cooldown:
       default-days: 7
+      default-days: 7
