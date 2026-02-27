@@ -114,29 +114,6 @@
       },
       "steps": [
         {
-          "action": "openTerminal",
-          "terminalId": "demo"
-        },
-        {
-          "action": "executeVSCodeCommand",
-          "command": "workbench.action.toggleMaximizedPanel"
-        },
-        {
-          "action": "executeTerminalCommand",
-          "command": "clear && zizmor .github/dependabot.yml",
-          "insertTypingMode": "character-by-character",
-          "insertTypingSpeed": 50,
-          "terminalId": "demo"
-        },
-        {
-          "action": "waitForTimeout",
-          "timeout": 20000
-        },
-        {
-          "action": "executeVSCodeCommand",
-          "command": "workbench.action.toggleMaximizedPanel"
-        },
-        {
           "action": "open",
           "path": ".github/dependabot.yml"
         },
