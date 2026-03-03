@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    cooldown:
+      default-days: 7
     open-pull-requests-limit: 10
     groups:
       github-actions:
@@ -13,6 +15,7 @@ updates:
     # This prevents too many updates in a short time
     pull-request-branch-name:
       separator: "-"
-    commit-message:
+    cooldown:
+      default-days: 7
       prefix: "chore"
       include: "scope"
