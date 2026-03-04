@@ -1,5 +1,8 @@
 {
     "workbench.statusBar.visible": true,
     "workbench.editor.showTabs": "multiple",
-    "workbench.activityBar.location": "default"
+    "workbench.activityBar.location": "default",
+    "chat.tools.terminal.autoApprove": {
+        "zizmor": true
+    }
 }
